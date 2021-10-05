@@ -1,0 +1,26 @@
+- hosts: servers
+  become: true
+  gather_facts: false
+  user: {{ user }}
+  # connection: local
+
+  tasks:
+    - name: Get Current Package Version
+      yum:
+        list: installed
+      register: package_version
+
+    - name: Check For Updates
+      yum:
+        list: updates
+        update_cache: true
+      register: update
+
+    - name: compute diff
+      package_diff:
+          current: "{{ package_version.results }}"
+          updates: "{{ update.results }}"
+      register: diff
+
+    - name: debug result
+      debug: msg="{{ diff.diff_str.split('\n') }}"

@@ -1,0 +1,21 @@
+- hosts: servers
+  become: true
+  user:{{ user }}
+  gather_facts: false
+
+  tasks:
+
+    - name: Check sudo version
+      command: 'rpm -qa sudo'
+      register: sudo_version
+
+    - debug:
+        var: sudo_version
+
+    - name: Make Column Headers
+      local_action: shell echo "hostname,sudo_version" > {{ path_to_save_file }}
+      become: false
+
+    - name: Save results into csv file
+      local_action: shell echo "{{ inventory_hostname }},{{ sudo_version.stdout }}" >> {{ path_to_save_file }}
+      become: false

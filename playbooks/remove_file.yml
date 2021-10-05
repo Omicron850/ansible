@@ -1,0 +1,15 @@
+- hosts: servers
+  become: true
+  user: {{ user }}
+  gather_facts: false
+
+  tasks:
+
+    - name: Remove CSV file
+      file:
+        state: absent
+        path: "{{ path_to_file }}"
+      register: results
+
+    - debug:
+        var: results
