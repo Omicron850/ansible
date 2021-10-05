@@ -1,0 +1,17 @@
+- hosts: servers
+  sudo: yes
+  user: {{ user }}
+
+  tasks:
+
+   - name: Remove Packages
+     yum: state=absent name={{ item }}
+     with_items:
+       - llama
+       - palletbuild
+     register: yum_remove
+
+   - debug: var=yum_remove
+
+# to run this playbook run as follows:
+# ansible-playbook remove_package.yml -i ../hosts servers --ask-pass --ask-sudo-pass

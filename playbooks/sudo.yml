@@ -1,0 +1,9 @@
+- hosts: all
+  sudo: yes
+  user: {{ user }}
+
+  tasks:
+
+   - name: Add User to sudo
+     copy: src={{ path_to_userfile }}
+           dest=/etc/sudoers.d/{{ username }}
