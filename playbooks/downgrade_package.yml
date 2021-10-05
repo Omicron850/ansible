@@ -1,0 +1,11 @@
+- hosts: servers
+  sudo: yes
+  user: {{ user }}
+
+  tasks:
+
+   - name: Downgrade package
+     shell: yum downgrade -y {{ package_to_downgrade }}
+     register: yum_downgrade
+
+   - debug: var=yum_downgrade

@@ -1,0 +1,10 @@
+- hosts: servers
+  remote_user: root
+  become: no
+
+  tasks:
+
+    - name: Touch file for testing
+      file:
+        path: "/home/{{ user }}/Documents/test.txt"
+        state: touch
