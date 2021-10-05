@@ -1,0 +1,26 @@
+- hosts: servers
+  remote_user: root
+  gather_facts: false
+  become: true
+
+  tasks:
+
+    - name: Create tomcataccess group
+      group:
+        name: tomcataccess
+        state: present
+      register: group
+
+    - debug:
+        var: group
+
+    - name: Add tomcat user
+      user:
+        name: tomcat
+        uid: 525
+        create_home: yes
+        group: tomcataccess
+      register: results
+
+    - debug:
+        var: results
