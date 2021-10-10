@@ -8,4 +8,5 @@
      shell: yum downgrade -y {{ package_to_downgrade }}
      register: yum_downgrade
 
-   - debug: var=yum_downgrade
+   - debug:
+       var: yum_downgrade
