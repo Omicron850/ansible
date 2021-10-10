@@ -5,11 +5,11 @@
 
   tasks:
 
-   - name: Start tomcat
+   - name: Start {{ service }}
      service:
        name: "{{ service }}"
        state: "{{ state }}"
-     register: tomcat
+     register: service
 
    - debug:
-       var: tomcat
+       var: service
